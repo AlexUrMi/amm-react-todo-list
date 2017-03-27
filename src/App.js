@@ -38,13 +38,8 @@ const gridInstance = (
                 </InputGroup.Button>
             </InputGroup>
           </FormGroup>
-
-
         </Form>
-
-
       </Col>
-
     </Row>
     <ProgressRow />
   </Grid>
