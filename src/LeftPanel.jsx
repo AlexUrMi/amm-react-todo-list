@@ -6,7 +6,7 @@ import { Grid, Form, FormControl, FormGroup, Panel, PanelGroup, Navbar, Glyphico
 class LeftPanel extends React.Component{
   render(){
     return (
-      <Panel>
+      <Panel >
         Some default panel content here.
         <ListGroup fill>
           <ListGroupItem>Item 1</ListGroupItem>
