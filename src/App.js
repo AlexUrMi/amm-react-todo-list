@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Grid, Form, FormControl, FormGroup, Panel, PanelGroup, Navbar, Glyphicon,
   Nav, NavItem, Well, Row, Col, Button, ListGroup, ListGroupItem, ProgressBar } from 'react-bootstrap';
 
+import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import './App.css';
 import MainPanel from './MainPanel.jsx';
 
