@@ -26,3 +26,32 @@
         transform: rotate(360deg);
     }
 }
+
+/*.paddingLeft10 {
+  padding-left:10px;
+}*/
+/*tree view item*/
+.treeViewItem {
+  width:250px;
+  padding-left:0;
+  padding-right: 0;
+}
+
+.treeViewItem > div {
+  height: 100%;
+}
+.treeViewItem div.row  div  div,span {
+  display:block;
+}
+
+.treeViewItem  div.row  div > span {
+  margin-left: 5px;
+  color:blue;
+}
+.treeViewItem  div.row  div  button {
+  padding: 0;
+}
+/*inline form*/
+.inlineForm  .inlineCheckbox {
+  margin-right:40px;
+}

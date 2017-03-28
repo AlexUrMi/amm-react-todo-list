@@ -16,10 +16,10 @@ class MainPanel extends React.Component {
           </Col>
         </Row>
         <Row >
-          <Col md={4}>
+          <Col md={5}>
             <div><LeftPanel /></div>
             </Col>
-          <Col md={8}>
+          <Col md={7}>
             <div><RightPanel /></div>
           </Col>
 
