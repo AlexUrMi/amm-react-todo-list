@@ -11,43 +11,89 @@ import {
 } from 'react-bootstrap';
 import SortableTree from 'react-sortable-tree';
 import TreeViewItem from './TreeViewItem.jsx'
+import treeViewUtil from 'react-sortable-tree';
+import {addNodeUnderParent, removeNodeAtPath, changeNodeAtPath, map, walk} from './utils/tree-data-utils.js';
+
+
 
 class TreeView extends Component {
     constructor(props) {
         super(props);
-        var node1 = this.getNewTreeViewItem("first", "k1");
-        var node2 = this.getNewTreeViewItem("second", "k2");
-        var node1 = this.addChildTreeViewItem(node1, node2);
-        var node3 = this.getNewTreeViewItem("third", "k3");
-        this.addChildTreeViewItem(node2, node3);
+        var node1 = this.createCategoryItem("first");
+        var t1 = this.createTask("t1", "d1");
+        this.addTaskToCategory(node1, t1);
+        this.addTaskToCategory(node1, {title:"t2", description:""});
+        var node2 = this.createCategoryItem("second");
+        this.addChildNode(node1, node2);
+        var node3 = this.createCategoryItem("third");
+        this.addChildNode(node2, node3);
         this.state = {treeData: [node1]};
     }
     //get new tree view item
-    getNewTreeViewItem(title, key) {
+    createCategoryItem(title) {
         const node = {
-            title: (
-                <TreeViewItem data={{title,key}}></TreeViewItem>
-            ),
-            noDragging: true,
-            children:[]
+            title: (<TreeViewItem data={title} ></TreeViewItem>),
+            children:[],
+            taskList:[]
         };
         return node;
     }
 
     //add node to parent node
-    addChildTreeViewItem(parent, item) {
-        parent.children.push(item);
+    addChildNode(parent, child) {
+        parent.children.push(child);
         return parent;
     }
+
+    createTask(title, description){
+      return {title:title, description:description, done:false};
+    }
+
+    addTaskToCategory(category, task){
+      category.taskList.push(task);
+      return parent;
+    }
+
+
+
     render() {
+
+      const alertNodeInfo = ({
+          node,
+          path,
+          treeIndex,
+          lowerSiblingCounts: _lowerSiblingCounts,
+      }) => {
+          const objectString = Object.keys(node)
+              .map(k => (k === 'children' ? 'children: Array' : `${k}: '${node[k]}'`))
+              .join(',\n   ');
+
+          alert( // eslint-disable-line no-alert
+              'Info passed to the button generator:\n\n' +
+              `node: {\n   ${objectString}\n},\n` +
+              `path: [${path.join(', ')}],\n` +
+              `treeIndex: ${treeIndex}`
+          );
+      };
+
         return (
             <div style={{
                 height: 400           }}>
                 <SortableTree
                   treeData={this.state.treeData}
                   onChange={treeData => this.setState({treeData})}
+                  generateNodeProps={rowInfo => ({
+                		buttons: [
+                			<button
+                				style={{
+                					verticalAlign: 'middle',
+                				}}
+                				onClick={() => alertNodeInfo(rowInfo)}
+                			>ℹ</button>,
+                		],
+                	})}
                   maxDepth={5}
-                  canDrag={({ node }) => !node.noDragging}
+                  canDrag={false}
                   />
             </div>
         );

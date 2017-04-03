@@ -7,7 +7,7 @@ class LeftPanel extends React.Component{
   render(){
     return (
       <Panel >
-        <TreeView />
+        <TreeView  />
       </Panel>
     );
   }

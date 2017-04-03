@@ -3,6 +3,29 @@ import { Grid, Form, FormControl, FormGroup, Panel, PanelGroup, Navbar, Glyphico
   Nav, NavItem, Well, Row, Col, Button, ListGroup, ListGroupItem, ProgressBar } from 'react-bootstrap';
 
 
+
+
+// class TodoItemsList extends React.Component {
+//   constructor(){
+//
+//   }
+//   render(){
+//     return (
+//       <ListGroup fill>
+//       this.State.TodoItems.map((item, index)=>{
+//        (<TodoItem item={item}></TodoItem>);
+//     });
+//     </ListGroup>
+//   );
+//   }
+// }
+//
+// class TodoItem extends React.Component {
+//   render (){
+//     return (ListGroupItem>{this.props.item.name}</ListGroupItem>);
+//   }
+// }
+
 class RightPanel extends React.Component {
   render(){
     return (
