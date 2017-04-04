@@ -19,42 +19,8 @@ import {addNodeUnderParent, removeNodeAtPath, changeNodeAtPath, map, walk} from 
 class TreeView extends Component {
     constructor(props) {
         super(props);
-        var node1 = this.createCategoryItem("first");
-        var t1 = this.createTask("t1", "d1");
-        this.addTaskToCategory(node1, t1);
-        this.addTaskToCategory(node1, {title:"t2", description:""});
-        var node2 = this.createCategoryItem("second");
-        this.addChildNode(node1, node2);
-        var node3 = this.createCategoryItem("third");
-        this.addChildNode(node2, node3);
-        this.state = {treeData: [node1]};
+        this.state = {treeData: props.tree};
     }
-    //get new tree view item
-    createCategoryItem(title) {
-        const node = {
-            title: (<TreeViewItem data={title} ></TreeViewItem>),
-            children:[],
-            taskList:[]
-        };
-        return node;
-    }
-
-    //add node to parent node
-    addChildNode(parent, child) {
-        parent.children.push(child);
-        return parent;
-    }
-
-    createTask(title, description){
-      return {title:title, description:description, done:false};
-    }
-
-    addTaskToCategory(category, task){
-      category.taskList.push(task);
-      return parent;
-    }
-
-
 
     render() {
 
@@ -92,7 +58,7 @@ class TreeView extends Component {
                 			>ℹ</button>,
                 		],
                 	})}
-                  maxDepth={5}
+                  maxDepth={99}
                   canDrag={false}
                   />
             </div>

@@ -6,12 +6,17 @@ import HeadPanel from './HeadPanel.jsx';
 
 
 class App extends Component {
+  constructor(props){
+
+    super(props);
+    this.state = {tree:props.tree};
+  }
   render() {
     return (
       <div className="App">
         <PanelGroup>
           <HeadPanel />
-          <MainPanel />
+          <MainPanel tree={this.state.tree} />
         </PanelGroup>
       </div>
     );

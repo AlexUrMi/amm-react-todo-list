@@ -6,8 +6,9 @@ import ReactDOM from 'react-dom';
 
 import App from './App';
 import './index.css';
+import tree from './Tree.jsx';
 
 ReactDOM.render(
-  <App />,
+  <App tree={tree.state.treeData} />,
   document.getElementById('root')
 );

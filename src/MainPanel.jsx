@@ -32,7 +32,8 @@ class MainPanel extends React.Component {
         super(props);
 
         this.state = {
-            CurrentCategory: null
+            CurrentCategory: null,
+            tree:props.tree
         };
         this.onCategoryChanged.bind(this);
     }
@@ -59,7 +60,7 @@ class MainPanel extends React.Component {
                 </Row>
                 <Row >
                     <Col md={5}>
-                        <div><LeftPanel/></div>
+                        <div><LeftPanel tree={this.state.tree} /></div>
                     </Col>
                     <Col md={7}>
                         <div><RightPanel category={this.state.CurrentCategory}/></div>
