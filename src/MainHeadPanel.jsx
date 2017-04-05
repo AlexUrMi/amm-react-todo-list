@@ -54,11 +54,6 @@ class MainHeadPanel extends React.Component {
             tree.log();
             window.ee.emit('Category.Add', newTree);
         }
-        //alert(this.state.categoryName);
-
-        //var key = e.target.getNodeKey();
-        // var node = e.target;
-        // emitter.emit('Category.Changed', node);
     }
 
     render() {
