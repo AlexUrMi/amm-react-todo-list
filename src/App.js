@@ -3,7 +3,9 @@ import {PanelGroup} from 'react-bootstrap';
 import './App.css';
 import MainPanel from './MainPanel.jsx';
 import HeadPanel from './HeadPanel.jsx';
+import ee from 'event-emitter';
 
+window.ee = ee();
 
 class App extends Component {
   constructor(props){

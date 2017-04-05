@@ -20,40 +20,46 @@ import {
     InputGroup
 } from 'react-bootstrap';
 import tree from './Tree.jsx';
+import ee from 'event-emitter';
 
 const removePadding = {
     paddingLeft: '0'
 };
 
 class MainHeadPanel extends React.Component {
-  constructor(props) {
-      super(props);
+    constructor(props) {
+        super(props);
 
-      this.onClickAddCategory = this.onClickAddCategory.bind(this);
-      this.onCategoryNameChanged = this.onCategoryNameChanged.bind(this);
-      this.state = {
-          title: props.data,
-          categoryName:null
-      };
-  }
-  onCategoryNameChanged(e){
-    e.preventDefault();
-    this.setState({categoryName:e.target.value});
-  }
-  onClickAddCategory(e) {
-      e.preventDefault();
-      const name = this.state.categoryName;
-      if(name){
-        var node = tree.createCategoryItem(name);
-        tree.addChildNode(tree.state.treeData[0], node);
-      }
-      //alert(this.state.categoryName);
+        this.onClickAddCategory = this.onClickAddCategory.bind(this);
+        this.onCategoryNameChanged = this.onCategoryNameChanged.bind(this);
+        this.state = {
+            title: props.data,
+            categoryName: null
+        };
+    }
 
-      //var key = e.target.getNodeKey();
-      // var node = e.target;
-      // emitter.emit('Category.Changed', node);
-  }
 
+    onCategoryNameChanged(e) {
+        e.preventDefault();
+        this.setState({categoryName: e.target.value});
+    }
+    onClickAddCategory(e) {
+        e.preventDefault();
+        const name = this.state.categoryName;
+        if (name) {
+            var node = tree.createCategoryItem(name);
+            tree.addRootNode(node);
+            var newTree = tree.Arr;
+            //log
+            tree.log();
+            window.ee.emit('Category.Add', newTree);
+        }
+        //alert(this.state.categoryName);
+
+        //var key = e.target.getNodeKey();
+        // var node = e.target;
+        // emitter.emit('Category.Changed', node);
+    }
 
     render() {
         return (
@@ -63,7 +69,7 @@ class MainHeadPanel extends React.Component {
                         <Col md={4} style={removePadding}>
                             <FormGroup className="pull-left">
                                 <InputGroup >
-                                    <FormControl type="text" placeholder="Enter category title" ref={(refToReactObject) => this.state.categoryNameRef = refToReactObject} onChange={this.onCategoryNameChanged} />
+                                    <FormControl type="text" placeholder="Enter category title" ref={(refToReactObject) => this.state.categoryNameRef = refToReactObject} onChange={this.onCategoryNameChanged}/>
                                     <InputGroup.Button>
                                         <Button onClick={this.onClickAddCategory}>Add</Button>
                                     </InputGroup.Button>
