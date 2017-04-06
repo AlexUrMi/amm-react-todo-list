@@ -1,21 +1,10 @@
 import React, {Component} from 'react';
 import TreeViewItem from './TreeViewItem.jsx'
 
-/*using class
-var node1 = this.createCategoryItem("first");
-var t1 = this.createTask("t1", "d1");
-this.addTaskToCategory(node1, t1);
-this.addTaskToCategory(node1, {title:"t2", description:""});
-var node2 = this.createCategoryItem("second");
-this.addChildNode(node1, node2);
-var node3 = this.createCategoryItem("third");
-this.addChildNode(node2, node3);
-this.state = {treeData: [node1]};
-*/
 var getString = function _getString(catItem){
   if(!catItem)
     return '';
-  var s = `title:${catItem.title}`;
+  var s = `title:${catItem.title} dataId:${catItem.dataId}`;
   var ss = '';
   if(catItem.children){
     catItem.children.map((it)=>{
@@ -25,6 +14,20 @@ var getString = function _getString(catItem){
   return s + ss;
 }
 
+// class treeItem {
+//   constructor(title){
+//     this.title = title;
+//     this.children = [];
+//     this.taskList = [];
+//   }
+//
+//   get title() {
+//     return this.title;
+//   }
+//   set title(newVal){
+//     this.title = newVal;
+//   }
+// }
 
 class Tree {
   constructor(){
@@ -32,12 +35,20 @@ class Tree {
   }
     //get new tree view item
     createCategoryItem(title) {
+        const id = Tree.newId();
+        var obj = {title, dataId:id};
         const node = {
-            title: (<TreeViewItem data={title} ></TreeViewItem>),
+            dataId: id,
+            title: (<TreeViewItem data={obj} ></TreeViewItem>),
             children:[],
             taskList:[]
         };
+
         return node;
+    }
+
+    static newId(){
+      return (new Date()).getTime();
     }
 
     //add node to parent node

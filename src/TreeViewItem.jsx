@@ -29,8 +29,11 @@ class TreeViewItem extends Component {
         // console.log(props);
         // debugger;
         this.onClick.bind(this);
+        debugger;
+        const {title, dataId} = props.data;
         this.state = {
-            title: props.data
+            title: title,
+            dataId:dataId
         };
     }
     onClick(e) {
@@ -44,13 +47,17 @@ class TreeViewItem extends Component {
     // onSelect(e) {
     //     alert('onSelect ' + e.target.text);
     // }
+
+
     render() {
+      const href = this.state.dataId + '';
+      console.log(href);
         return (
             <Grid className="treeViewItem">
                 <Row>
                     <Col md={6}>
-
-                        <Label className="pull-left" onClick={this.onClick} >{this.state.title}</Label>
+                        <a href={href}> {this.state.title}
+                        </a>
                         <Button className="pull-right">
                             <Glyphicon glyph="edit" bsSize="small" className="pull-left"></Glyphicon>
                         </Button>
