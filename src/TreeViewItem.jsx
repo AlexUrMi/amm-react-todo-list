@@ -20,16 +20,15 @@ import {
     Label
 } from 'react-bootstrap';
 import ee from 'event-emitter';
+import {Link} from 'react-router';
 
 var emitter = ee();
 
 class TreeViewItem extends Component {
     constructor(props) {
         super(props);
-        // console.log(props);
-        // debugger;
         this.onClick.bind(this);
-        debugger;
+        // debugger;
         const {title, dataId} = props.data;
         this.state = {
             title: title,
@@ -44,20 +43,15 @@ class TreeViewItem extends Component {
         var node = e.target;
         emitter.emit('Category.Changed', node);
     }
-    // onSelect(e) {
-    //     alert('onSelect ' + e.target.text);
-    // }
-
 
     render() {
-      const href = this.state.dataId + '';
-      console.log(href);
+      const href = '/task/' + this.state.dataId;
+      //console.log(href);
         return (
             <Grid className="treeViewItem">
                 <Row>
                     <Col md={6}>
-                        <a href={href}> {this.state.title}
-                        </a>
+                        <Link to={href}>{this.state.title}</Link>
                         <Button className="pull-right">
                             <Glyphicon glyph="edit" bsSize="small" className="pull-left"></Glyphicon>
                         </Button>

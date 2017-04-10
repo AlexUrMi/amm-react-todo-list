@@ -4,6 +4,10 @@ import './App.css';
 import MainPanel from './MainPanel.jsx';
 import HeadPanel from './HeadPanel.jsx';
 import ee from 'event-emitter';
+import {Router, Route, IndexRoute, browserHistory} from 'react-router';
+import EmptyPanel from './EmptyPanel.jsx';
+import taskDetails from './taskDetails.jsx';
+import RightPanel from './RightPanel.jsx';
 
 window.ee = ee();
 
@@ -16,10 +20,17 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <PanelGroup>
-          <HeadPanel />
-          <MainPanel tree={this.state.tree} />
-        </PanelGroup>
+        <Router history={browserHistory}>
+            <Route component={MainPanel} path="/">
+                <IndexRoute component={EmptyPanel}></IndexRoute>
+                <Route path="task" component={RightPanel}>
+                  <IndexRoute component={EmptyPanel}></IndexRoute>
+                  <Route path=":id" component={taskDetails} />
+                </Route>
+            </Route>
+        </Router>
+
+
       </div>
     );
   }

@@ -13,27 +13,39 @@ import SortableTree from 'react-sortable-tree';
 import TreeViewItem from './TreeViewItem.jsx'
 import treeViewUtil from 'react-sortable-tree';
 import {addNodeUnderParent, removeNodeAtPath, changeNodeAtPath, map, walk} from './utils/tree-data-utils.js';
+import tree from './Tree.jsx';
 
 class TreeView extends Component {
     constructor(props) {
         super(props);
+        tree.log();
+        this.componentDidMount = this.componentDidMount.bind(this);//try to mount to current context
         this.state = {
-            treeData: props.tree
+            treeData: tree.Arr
         };
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({treeData: nextProps.tree});
+        if(nextProps && nextProps.tree){
+          console.log('componentWillReceiveProps' + nextProps.tree.log());
+          this.setState({treeData: nextProps.tree});
+        } else{
+          console.log('componentWillReceiveProps tree is empty');
+        }
+
     }
     componentDidMount() {
         var self = this;
+        //подписываемся на обработчик
+        console.log('componentDidMount');
         window.ee.on('Category.Add', function(item) {
-          console.log('Category.Add');
-            self.setState({treeData: item});
+          debugger;
+            self.setState({treeData: item});//not use item
         });
     }
     componentWillUnmount() {
-        window.ee.off('Category.Add');
+      console.log('componentWillUnmount');
+        window.ee.off('Category.Add');//отписываемся от обработчика
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -50,14 +62,11 @@ class TreeView extends Component {
             alert( // eslint-disable-line no-alert
                     'Info passed to the button generator:\n\n' + `node: {\n   ${objectString}\n},\n` + `path: [${path.join(', ')}],\n` + `treeIndex: ${treeIndex}`);
         };
-
+        var styleObj = {height: 400};
         return (
-            <div style={{
-                height: 400
-            }}>
+            <div style={styleObj}>
                 <SortableTree treeData={this.state.treeData} onChange={treeData => this.setState({treeData})} generateNodeProps={rowInfo => ({
-                    buttons: [ < button style = {{ verticalAlign: 'middle', }}onClick = {
-                            () => alertNodeInfo(rowInfo)
+                    buttons: [ < button style = {{ verticalAlign: 'middle' }} onClick = {() => alertNodeInfo(rowInfo)
                         } > ℹ < /button>, ], })} maxDepth={99} canDrag={false}/>
             </div>
         );

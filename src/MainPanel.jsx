@@ -63,7 +63,7 @@ class MainPanel extends React.Component {
                         <div><LeftPanel tree={this.state.tree} /></div>
                     </Col>
                     <Col md={7}>
-                        <div><RightPanel category={this.state.CurrentCategory}/></div>
+                        <div>{this.props.children}</div>
                     </Col>
 
                 </Row>
