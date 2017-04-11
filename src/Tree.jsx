@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import TreeViewItem from './TreeViewItem.jsx'
 
+//recursion function
 var getString = function _getString(catItem){
   if(!catItem)
     return '';
@@ -17,6 +18,7 @@ var getString = function _getString(catItem){
   return s + ss;
 }
 
+//recursion function
 var getCategory = function _getCategory(catItem, id){
   if(!catItem || !id){
     console.log('_getCategory return null');
@@ -80,7 +82,7 @@ class Tree {
       this.logArr();
     }
     logArr(){
-      console.log(`tree ar length:${this.Arr.length}`);
+      console.log(`for tree Array length is :${this.Arr.length}`);
     }
     createTask(title, description){
       var t =  {title:title, description:description, done:false};
@@ -102,18 +104,6 @@ class Tree {
               return obj;
             }
         }
-        // for(var it in this.Arr){
-        //   var obj =  getCategory(it, id);
-        //   if(obj){
-        //     return obj;
-        //   }
-        // }
-          // this.Arr.forEach((it)=>{
-          //   var obj =  getCategory(it, id);
-          //   if(obj){
-          //     return obj;
-          //   }
-          // });
       }
       return null;
     }
@@ -126,7 +116,7 @@ class Tree {
             ss += getString(it);
           });
       }
-      var s = '';//getString(this);
+      var s = '';
       console.log(s + ss);
     }
 
@@ -142,9 +132,9 @@ var t2 = tree.createTask("t2", "d2");
 tree.addTaskToCategory(node1, t2);
 tree.addRootNode(node1);
 var node2 = tree.createCategoryItem("second");
-tree.addRootNode(node2);
+tree.addChildNode(node1, node2);
 var node3 = tree.createCategoryItem("third");
-tree.addChildNode(node2, node3);
+tree.addChildNode(node1, node3);
 tree.state = {treeData: tree.Arr};
 
 export default tree;

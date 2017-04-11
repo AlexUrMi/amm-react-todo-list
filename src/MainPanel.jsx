@@ -43,7 +43,6 @@ class MainPanel extends React.Component {
     }
 
     componentDidMount() {
-        var that = this;
         emitter.on('Category.Changed', this.onCategoryChanged);
     }
     componentWillUnmount() {

@@ -48,7 +48,7 @@ class MainHeadPanel extends React.Component {
         const name = this.state.categoryName;
         if (name) {
             var node = tree.createCategoryItem(name);
-            tree.addRootNode(node);
+            tree.addChildNode(tree.Arr[0],node);
             var newTree = tree.Arr;
             //log
             tree.log();
