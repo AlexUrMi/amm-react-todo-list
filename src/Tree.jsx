@@ -46,6 +46,9 @@ var getCategory = function _getCategory(catItem, id){
   return null;
 }
 
+//static id couter
+let _cnt = 0;
+
 class Tree {
   constructor(){
     this.Arr = [];
@@ -66,7 +69,8 @@ class Tree {
     }
 
     static newId(){
-      return (new Date()).getTime();
+      _cnt++;
+      return _cnt;//(new Date()).getTime();
     }
 
     //add node to parent node
