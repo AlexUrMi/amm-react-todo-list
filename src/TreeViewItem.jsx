@@ -57,12 +57,7 @@ class TreeViewItem extends Component {
                         </Button>
                     </Col>
                     <Col md={6}>
-                        <Button className="pull-right">
-                            <i className="glyphicon glyphicon-plus pull-right"></i>
-                        </Button>
-                        <Button className="pull-right">
-                            <i className="glyphicon glyphicon-trash pull-right"></i>
-                        </Button>
+
                     </Col>
                 </Row>
             </Grid>

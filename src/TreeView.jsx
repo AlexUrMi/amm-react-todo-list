@@ -24,8 +24,6 @@ class TreeView extends Component {
         super(props);
         tree.log();
         this.componentDidMount = this.componentDidMount.bind(this);//try to mount to current context
-        this.updateTreeData = this.updateTreeData.bind(this);
-        this.addNode = this.addNode.bind(this);
         this.removeNode = this.removeNode.bind(this);
         this.state = {
             treeData: tree.Arr
@@ -46,8 +44,7 @@ class TreeView extends Component {
         //подписываемся на обработчик
         console.log('componentDidMount');
         window.ee.on('Category.Add', function(item) {
-          debugger;
-            self.setState({treeData: item});//not use item
+            self.setState({treeData: item});
         });
     }
     componentWillUnmount() {
@@ -58,49 +55,23 @@ class TreeView extends Component {
     shouldComponentUpdate(nextProps, nextState) {
         return true;
     }
-
-    addNode(rowInfo){
-        let NEW_NODE = {title: ''};
-        let {node, treeIndex, path} = rowInfo;
-        path.pop();
-        let parentNode = getNodeAtPath({
-            treeData: this.state.treeData,
-            path : path,
-            getNodeKey: ({ treeIndex }) =>  treeIndex,
-            ignoreCollapsed : true
-        });
-        let getNodeKey = ({ node: object, treeIndex: number }) => {
-            return number;
-        };
-        let parentKey = getNodeKey(parentNode);
-        if(parentKey == -1) {
-            parentKey = null;
-        }
-        let newTree = addNodeUnderParent({
-                treeData: this.state.treeData,
-                newNode: NEW_NODE,
-                expandParent: true,
-                parentKey: parentKey,
-                getNodeKey: ({ treeIndex }) =>  treeIndex
-         });
-         this.setState({treeData: newTree.treeData});
-    }
-
     removeNode(rowInfo) {
       let {node, treeIndex, path} = rowInfo;
-      this.setState({ treeData : removeNodeAtPath({
-                       treeData: this.state.treeData,
-                       path: path,   // You can use path from here
-                       getNodeKey: ({node: TreeNode, treeIndex: number}) => {
-                           return number;
-                       },
-                       ignoreCollapsed: false,
-                    })
-        })
-    }
-    updateTreeData(treeData) {
-        this.setState({ treeData });
-    }
+        var ar = Object.keys(node).map(k=>(k==='dataId')? node[k]:null);
+        if(ar && ar.length > 0){
+          var id = ar[0];
+          if(id){
+            var res = tree.removeNodeById(id + '');
+            if(res){
+              this.setState({treeData: tree.Arr});
+            }
+          }
+
+        }
+      }
+
+
+
 
     render() {
 
@@ -121,10 +92,9 @@ class TreeView extends Component {
                   generateNodeProps={rowInfo => ({
                     buttons: [
                       <div>
-                        <button label='-'
-                                onClick={(event) => this.removeNode(rowInfo)}>Remove</button>
-                        <button label='+'
-                          onClick={(event) => this.addNode(rowInfo)}>Add</button>
+                          <button className="pull-right" onClick={() => this.removeNode(rowInfo)} >
+                              <i className="glyphicon glyphicon-trash pull-right"></i>
+                          </button>
                         <button
                           style = {{verticalAlign: 'middle'}}
                           onClick = {() => alertNodeInfo(rowInfo)}
