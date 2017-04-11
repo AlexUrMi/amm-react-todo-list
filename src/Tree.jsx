@@ -26,7 +26,6 @@ var getCategory = function _getCategory(catItem, id){
   }
 
   if(!catItem.title || !catItem.dataId){
-    debugger;
     console.log('_getCategory incorect data dataId');
   }
   if(catItem.dataId + "" === id){
@@ -44,6 +43,34 @@ var getCategory = function _getCategory(catItem, id){
     }
   }
   return null;
+}
+
+//recursion function
+var removeCategoryById = function _removeCategoryById(arr, id){
+  if(!id || id + '' === '1'){
+    console.log('_getCategoryArray return null');
+    return false;
+  }
+
+  if(arr && arr.length > 0){
+    for(var i = 0; i < arr.length; i++){
+      var it = arr[i];
+      if(it.dataId + '' === id){
+        arr.splice(i, 1);
+        return true;
+      }
+
+
+      var res =  removeCategoryById(it.children, id);
+      if(res){
+        console.log('_getCategoryArray return ' + res);
+        //return obj;
+        return res;
+      }
+      console.log(`_getCategoryArray not found for id:${it.dataId}`);
+    }
+  }
+  return false;
 }
 
 //static id couter
@@ -79,6 +106,12 @@ class Tree {
         console.log(`addChildNode nodeParent:${parent.dataId} nodeChild:${child.dataId} `);
         this.logArr();
         return parent;
+    }
+
+    removeNodeById(id){
+      var res = removeCategoryById(this.Arr, id);
+      this.logArr();
+      return res;
     }
     //add node to root level
     addRootNode(node){
